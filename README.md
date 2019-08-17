@@ -1,6 +1,6 @@
 # Publications
 
-All my first author publications (pdf) in peer-to-peer reviews:  
+All my first author publications (.pdf) in peer-to-peer reviews:  
 
 - de Jaeger et al. 2018b: Observed Type II supernova colours from the CSP-I.  
 -> **First extensive Type II supernovae observed colour studies demonstrating that difference in colours are due to intrinsic properties**
