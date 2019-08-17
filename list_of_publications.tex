@@ -1,0 +1,536 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %%
+%% LaTeX to get the ``??'' replaced with the number of the last page  %%
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[12pt]{article}
+\RequirePackage[T1]{fontenc}
+
+% LaTeX will typeset using Computer Modern Roman, which a lot of
+% non-mathematicians and non-engineers won't like. Also, a few PDF
+% viewers may not render CMR very well. Instead, Times New Roman can
+% be used. That's what this package does.
+\usepackage{times}
+
+% The automated optical recognition software used to digitize resume
+% information works best with fonts that do not have serifs. This
+% command uses a sans serif font throughout. Uncomment both lines (or at
+% least the second) to restore a Roman font (i.e., a font with serifs).
+% (NOTE: This requires the times package above)
+%\renewcommand{\familydefault}{\sfdefault}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% This package helps LaTeX auto-hyphenate hyphenated words if you use
+% special hyphens. For example, bio\-/mimicry will properly hyphenate
+% ``mimicry'' if necessary.
+\usepackage[shortcuts]{extdash}
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+%% Use these lines for letter-sized paper
+%\usepackage[paper=letterpaper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=1.2in,     % Length of section titles
+%            marginparsep=.05in,       % Space between titles and text
+%            margin=1in,               % 1 inch margins
+%            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+\usepackage[paper=a4paper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=5.5mm,    % Length of section titles
+            marginparsep=1.5mm,       % Space between titles and text
+            margin=15mm,              % 25mm margins
+            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+% Provides special list environments and macros to create new ones
+\usepackage[shortlabels]{enumitem}
+
+% Simpler bibsections for CV sections
+% (thanks to natbib for inspiration)
+%
+% * For lists of references with hanging indents and no numbers:
+%
+%   \begin{bibsection}
+%       \item ...
+%   \end{bibsection}
+%
+% * For numbered lists of references (with hanging indents):
+%
+%   \begin{bibenum}
+%       \item ...
+%   \end{bibenum}
+%
+%   Note that bibenum numbers continuously throughout. To reset the
+%   counter, use
+%
+%   \restartlist{bibenum}
+%
+%   at the place where you want the numbering to reset.
+
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{0em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newlist{bibsection}{itemize}{3}
+\setlist[bibsection]{label=,leftmargin=\bibhang,%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\newlist{bibenum}{enumerate}{3}
+\setlist[bibenum]{label=[\arabic*],resume,leftmargin={\bibhang+\widthof{[999]}},%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\let\oldendbibenum\endbibenum
+\def\endbibenum{\oldendbibenum\vspace{-.6\baselineskip}}
+\let\oldendbibsection\endbibsection
+\def\endbibsection{\oldendbibsection\vspace{-.6\baselineskip}}
+\makeatother
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+\usepackage{marvosym}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% HEADING AT TOP OF CURRICULUM VITAE
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%       \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[{\includegraphics[height=1.5in]{my_picture}}]{Your Name}
+%
+% the picture will be flush right across from the name. For this example
+% to work, make sure the extra set of curly braces is included. Also
+% makes ure that \usepackage{graphicx} is somewhere in the preamble.
+\newcommand{\makeheading}[2][]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+%%% SECTION HEADINGS
+
+% The section headings. Flush left in small caps down pseudo-margin.
+%
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+    \vspace{1.3\baselineskip}%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
+    \noindent\llap{\scshape\smash{\parbox[t]{\marginparwidth}{\hyphenpenalty=10000\raggedright #1}}}%
+    \vspace{-\baselineskip}\par}
+
+%%% LISTS
+
+% This macro alters a list by removing some of the space that follows the list
+% (is used by lists below)
+\newcommand*\fixendlist[1]{%
+    \expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+
+% These macros help ensure that items in outer-type lists do not get
+% separated from the next line by a page break
+% (they are used by lists below)
+\let\originalItem\item
+\newcommand*\fixouterlist[1]{%
+    \expandafter\let\csname preFixOuterList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\def\item{\pagebreak[2]\oldItem}\csname preFixOuterList#1\endcsname}
+    \expandafter\let\csname preFixOuterListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\let\item\oldItem\csname preFixOuterListend#1\endcsname}}
+\newcommand*\fixinnerlist[1]{%
+    \expandafter\let\csname preFixInnerList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
+    \expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
+
+% An itemize-style list with lots of space between items
+%
+% Usage:
+%   \begin{outerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{outerlist}
+\newlist{outerlist}{itemize}{3}
+    \setlist[outerlist]{label=\enskip\textbullet,leftmargin=*}
+    \fixendlist{outerlist}
+    \fixouterlist{outerlist}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{lonelist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{lonelist}
+\newlist{lonelist}{itemize}{3}
+    \setlist[lonelist]{label=\enskip\textbullet,leftmargin=*,partopsep=0pt,topsep=0pt}
+    \fixendlist{lonelist}
+    \fixouterlist{lonelist}
+
+% An itemize-style list with little space between items
+%
+% Usage:
+%   \begin{innerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{innerlist}
+\newlist{innerlist}{itemize}{3}
+    \setlist[innerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixinnerlist{innerlist}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{loneinnerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{loneinnerlist}
+\newlist{loneinnerlist}{itemize}{3}
+    \setlist[loneinnerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixendlist{loneinnerlist}
+    \fixinnerlist{loneinnerlist}
+
+%%% EXTRA SPACE
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+%%% FORMATTING MACROS
+
+% Provides a linked \doi{#1} that links doi:#1 to http://dx.doi.org/#1
+\usepackage{doi}
+% To change the text before the DOI, adjust this command
+%\renewcommand\doitext{doi:}
+
+% Provides a linked \url{#1} that doesn't require escape characters
+\usepackage{url}
+
+% You can adjust the style \url{} uses here:
+% (options are: same, rm, sf, tt; defaults to tt)
+\urlstyle{same}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+% (uncomment to typeset the e\-/mail address in typewriter font;
+%  otherwise, will be typeset in the \urlstyle above)
+%\DeclareUrlCommand\emaillink{\urlstyle{tt}}
+\providecommand*\emaillink[1]{\nolinkurl{#1}}
+\providecommand*\email[1]{\href{mailto:#1}{\emaillink{#1}}}
+
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+% Custom hyphenation rules for words that LaTeX has trouble with
+\hyphenation{bio-mim-ic-ry bio-in-spi-ra-tion re-us-a-ble pro-vid-er Media-Wiki}
+
+\usepackage[mmddyy]{datetime}
+
+\begin{document}
+
+
+\section{\textbf{Refereed Journal Publications}}
+
+\hspace{5cm}
+6 publications as first author, 28 in total.~~~~~~~~~~~\textit{Last update: \today}
+
+\hspace{5cm}
+\vspace{-1cm}
+Total citations: 752, h-index=15.\\
+
+\vspace{1.4cm}
+\underline{\textbf{First author}}
+\vspace{0.2cm}
+\begin{bibenum}
+
+    \item 
+SN 2016esw: a luminous Type II supernova observed within the first day after the explosion.\\
+\textbf{de Jaeger, T.}, Galbany, L., Gutierrez, C. P., et al. 2018\\
+MNRAS, 478, 3776, \href{https://arxiv.org/abs/1805.03205}{1805.03205}
+
+    \item 
+Observed Type II supernova colours from the CSP-I.\\
+\textbf{de Jaeger, T.}, Anderson, J. P., Galbany, L., et al. 2018\\
+MNRAS, 476, 4592, \href{https://arxiv.org/abs/1802.07254}{1802.07254}
+
+    \item 
+SN 2016jhj at redshift 0.34: extending the Type II supernova Hubble diagram using the standard candle method.\\
+\textbf{de Jaeger, T.}, Galbany, L., Filippenko, A. V., et al. 2017\\
+MNRAS, 472, 4322, \href{https://arxiv.org/abs/1709.01513}{1709.01513}
+
+    \item 
+A Type II Supernova Hubble diagram from the CSP-I, SDSS-II, and SNLS surveys.\\
+\textbf{de Jaeger, T.}, Gonzalez Gaitan, S., Hamuy, M., et al. 2017\\
+ApJ, 835, 166, \href{https://arxiv.org/abs/1612.05636}{1612.05636}
+    \item 
+A Hubble diagram from Type II Supernovae based solely on photometry: the Photometric-Colour Method.\\
+\textbf{de Jaeger, T.}, Gonzalez Gaitan, S., Anderson, J. P., et al. 2015\\
+ApJ, 815, 121, \href{http://arxiv.org/abs/1511.05145}{1511.05145}
+    \item 
+SN 2011A: A Low-luminosity Interacting Transient with a Double Plateau and Strong Sodium Absorption\\
+\textbf{de Jaeger, T.}, Anderson, J. P., Pignata, G., et al. 2015\\
+ApJ, 807 63, \href{http://arxiv.org/abs/1505.01852}{1505.01852} 
+
+\end{bibenum}
+
+\vspace{0.8cm}
+\underline{\textbf{Co-author}}
+\vspace{0.2cm}
+\restartlist{bibenum}
+\begin{bibenum}
+
+\item 
+The Type II-plateau Supernova 2017eaw in NGC 6946 and Its Red Supergiant Progenitor.\\
+Van Dyk, S. D.; Zheng, W.; Maund, J. R.  et \textbf{al.} 2019\\
+A\&A, 875, 136V, \href{https://arxiv.org/abs/1903.03872}{1903.03872}
+
+\item 
+Late-time observations of the extraordinary Type II supernova iPTF14hls.\\
+Sollerman, J.; Taddia, F.; Arcavi, I.  et \textbf{al.} 2019\\
+A\&A, 621A, 30S, \href{https://arxiv.org/abs/1806.10001}{1806.10001}
+
+\item 
+The High Cadence Transit Survey (HiTS): Compilation and Characterization of Light-curve Catalogs.\\
+Mart\'inez-Palomera, J., F\"orster, F., Protopapas, P.,  et \textbf{al.} 2018\\
+AJ, 156, 186, \href{https://arxiv.org/abs/1809.00763}{1809.00763}
+
+\item 
+The delay of shock breakout due to circumstellar material evident in most type II supernovae.\\
+F\"orster, F., Moriya, T. J., Maureira, J. C.,  et \textbf{al.} 2018\\
+Nature Astronomy, Accepted, \href{http://adsabs.harvard.edu/doi/10.1038/s41550-018-0563-4}{s41550-018-0563-4}
+
+    \item 
+Discovery of Distant RR Lyrae Stars in the Milky Way Using DECam.\\
+Medina, G. E., Munoz R. R., Vivas K. A., et \textbf{al.} 2018\\
+ApJ, 855, 43, \href{https://arxiv.org/abs/1802.01581}{1802.01581}
+    \item 
+Asteroids in the High Cadence Transient Survey.\\
+Pena, J., Forster F., Maureira J. C., et \textbf{al.} 2018\\
+AJ,155, 135, \href{http://adsabs.harvard.edu/abs/2018AJ....155..135P}{155.135}
+    \item 	
+A surge of light at the birth of a supernova.\\
+Bersten, M. C., Folatelli, G., Garcia, F., et \textbf{al.} 2018\\
+Nature, 554, 487, \href{https://arxiv.org/abs/1801.00732}{1801.00732}
+    \item 	
+The First Post-Kepler Brightness Dips of KIC 8462852.\\
+Boyajian, T. S., Alonso, R., Ammerman, A., et \textbf{al.} 2018\\
+ApJ, 835, 8, \href{https://arxiv.org/abs/1802.09360}{1802.09360}
+    \item 	
+Gaia17biu/SN 2017egm in NGC 3191: the closest hydrogen-poor superluminous supernova to date is in a "normal", massive, metal-rich spiral galaxy.\\
+Bose, S., Dong, S., Pastorello, A., et \textbf{al.} 2018\\
+ApJ, 853, 57, \href{https://arxiv.org/abs/1708.00864}{1708.00864}
+    \item 
+Serendipitous discovery of RR Lyrae stars in the Leo V ultra-faint galaxy.\\
+Medina, G. E., Munoz R. R., Vivas K. A., et \textbf{al.} 2017\\
+ApJ, 845, 10, \href{https://arxiv.org/abs/1708.00009}{1708.00009}
+    \item 
+The High Cadence Transient Survey (HITS). I. Survey Design and Supernova Shock Breakout Constraints.\\
+Forster, F., Maureira, J. C., San Martin, J., et \textbf{al.} 2016\\
+ApJ, 832, 166, \href{https://arxiv.org/abs/1609.03567}{1609.03567}
+    \item 
+Type II supernovae as probes of environment metallicity: observations of host H II regions.\\
+Anderson, J. P., Gutierrez, C. P., Dessart, L., et \textbf{al.} 2016\\
+A\&A, 589, 110, \href{https://arxiv.org/abs/1602.00011}{1602.00011}
+    \item 
+UBVRIz Light Curves of 51 Type II Supernovae.\\
+Galbany, L., Hamuy, M., Phillips, M. M., et \textbf{al.} 2016\\
+AJ, 151,33, \href{http://arxiv.org/abs/1511.08402}{1511.08402}
+    \item 
+The rise-time of Type II supernovae\\
+Gonz\'alez-Gait\'an, S., Tominaga, N., Molina, J, et \textbf{al.} 2015\\
+MNRAS, 451 2212, \href{http://arxiv.org/abs/1505.02988}{1505.02988} 
+    \item 
+Nebular phase observations of the Type-Ib supernova iPTF13bvn favour a binary progenitor\\
+Kuncarayakti, H., Maeda, K., Bersten, M. C., et \textbf{al.} 2015\\
+A\&A, 579 95, \href{http://arxiv.org/abs/1504.01473}{1504.01473}  
+    \item 
+PESSTO: survey description and products from the first data release by the Public ESO Spectroscopic Survey of Transient Objects\\
+Smartt, S. J., Valenti, S., Fraser, M., et \textbf{al.} 2015\\
+A\&A, 579 40, \href{http://arxiv.org/abs/1411.0299}{1411.0299}
+    \item 
+Defining Photometric Peculiar Type Ia Supernovae\\
+Gonz\'alez-Gait\'an, S., Hsiao, E. Y., Pignata, G., et \textbf{al.} 2014\\
+ApJ, 795 142, \href{http://arxiv.org/abs/1409.4811}{1409.4811}    
+    \item 
+Characterizing the V-band Light-curves of Hydrogen-rich Type II Supernovae\\
+Anderson, J. P., Gonz\'alez-Gait\'an, S., Hamuy, M.,  et \textbf{al.} 2014\\
+ApJ, 786 67, \href{http://arxiv.org/abs/1403.7091}{1403.7091} 
+    \item 
+SN 2011hs: a fast and faint Type IIb supernova from a supergiant progenitor\\
+Bufano, F., Pignata, G., Bersten, M., et \textbf{al.} 2014\\
+MNRAS, 439 1807, \href{http://arxiv.org/abs/1401.2368}{1401.2368}
+    \item 
+An Independent Measurement of the Incidence of Mg II Absorbers along Gamma-Ray Burst Sight Lines: The End of the Mystery?\\
+Cucchiara, A., Prochaska, J. X., Zhu, G.,  et \textbf{al.} 2013\\
+ApJ, 773 82, \href{http://arxiv.org/abs/1211.6528}{1211.6528} 
+    \item 
+Spectroscopic Observations of SN 2012fr: A Luminous, Normal Type Ia Supernova with Early High-velocity Features and a Late Velocity Plateau\\
+Childress, M. J. , Scalzo, R. A. ,Sim, S. A.,  et \textbf{al.} 2013\\
+ApJ, 786 67, \href{http://arxiv.org/abs/1302.2926}{1302.2926\\} 
+
+\end{bibenum}
+
+\hspace{-3cm}\textcolor{black}{\rule{22.8cm}{0.5mm}}
+
+\section{\textbf{Non-refereed publications}}
+\restartlist{bibenum}
+\vspace{2.0cm}
+\begin{bibenum}
+
+    \item 
+Late-time observations of the extraordinary Type II supernova iPTF14hls\\
+Sollerman, J., Taddia, F., Arcavi, I., \textbf{et al.} 2018\\
+Submitted to A\&A, \href{http://adsabs.harvard.edu/abs/2018arXiv180610001S}{2018arXiv180610001S}
+\end{bibenum}
+
+\section{\textbf{Conferences proceedings}}
+\restartlist{bibenum}
+\vspace{1.3cm}
+\begin{bibenum}
+
+    \item 
+A double plateau and unprecendented circumstellar variable sodium in the transient SN 2011A\\
+\textbf{de Jaeger, T.}; Anderson, J.; Pignata, G.; Hamuy, M. 2014\\
+\href{http://adsabs.harvard.edu/abs/2014IAUS..296..346D}{IAUS, 296, 346} 
+
+\end{bibenum}
+
+\section{\textbf{Circulars}}
+\restartlist{bibenum}
+\vspace{0.8cm}
+\begin{bibenum}
+
+    \item \textbf{de Jaeger, T.}, et al., 2017, ``Spectroscopic Classification of AT 2017ego and confirmation of SN 2017eir with Keck II.'', \href{http://adsabs.harvard.edu/abs/2017ATel.10505....1D}{ATEL 10505-1D}
+    \item Zheng, W., \textbf{et al.}, 2017, ``Spectroscopic classification optical transients with Keck II/DEIMOS'', \href{http://adsabs.harvard.edu/abs/2017ATel10979....1Z}{ATEL 10979-1Z}
+    \item Short, L., et \textbf{al.}, 2016, ``PESSTO spectroscopic classification of optical transient'', \href{http://adsabs.harvard.edu/abs/2016ATel.9483....1S}{ATEL 9483-1S}
+    \item Moraga, T., et \textbf{al.}, 2015, ``PESSTO spectroscopic classification of optical transient'', \href{http://adsabs.harvard.edu/abs/2015ATel.8018....1M}{ATEL 8018-1M}
+    \item Romero-Canizales, C., et \textbf{al.}, 2015, ``PESSTO spectroscopic classification of optical transient'', \href{http://adsabs.harvard.edu/abs/2015ATel.8005....1R}{ATEL 8005-1R}
+    \item Anderson, A., et \textbf{al.}, 2015, ``Optical spectrosopy of HiTS supernovae'', \href{http://adsabs.harvard.edu/abs/2015ATel.7335....1A}{ATEL 7335-1A}
+    \item Forster, F., et \textbf{al.}, 2015, ``Optical spectra of SNHiTS15al, SNHiTS15be, SNHiTS15bs and SNHiTS15by'', \href{http://adsabs.harvard.edu/abs/2015ATel.7291....1F}{ATEL 7291-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7290....1F}{ATEL 7290-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7289....1F}{ATEL 7289-1F}
+    \item Pignata, G., et \textbf{al.}, 2015, ``Optical spectroscopy of SNHiTS15aw'', \href{http://adsabs.harvard.edu/abs/2015ATel.7246....1P}{ATEL 7246-1P}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7221....1F}{ATEL 7221-1F}
+    \item Anderson, A., et \textbf{al.}, 2015, ``Optical spectrosopy of SNHiTS15ad (Gabriela)'', \href{http://adsabs.harvard.edu/abs/2015ATel.7164....1A}{ATEL 7164-1A}
+    \item Anderson, A., et \textbf{al.}, 2015, ``Optical spectrosopy of SNHiTS15D (Daniela) and SNHiTS15P (Rosemary)'', \href{http://adsabs.harvard.edu/abs/2015ATel.7162....1A}{ATEL 7162-1A}
+    \item Baumont, S., et \textbf{al.}, 2015, ``PESSTO spectroscopic classification of optical transients'', \href{http://adsabs.harvard.edu/abs/2015ATel.7154....1B}{ATEL 7154-1B}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7149....1F}{ATEL 7149-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7148....1F}{ATEL 7148-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7146....1F}{ATEL 7146-1F}
+    \item Le Guillou, L., et \textbf{al.}, 2015, ``PESSTO spectroscopic classification of optical transients'', \href{http://adsabs.harvard.edu/abs/2015ATel.7144....1F}{ATEL 7144-1L}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7132....1F}{ATEL 7132-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7131....1F}{ATEL 7131-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7115....1F}{ATEL 7115-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7108....1F}{ATEL 7108-1F}
+    \item Forster, F., et \textbf{al.}, 2015, ``HiTS real-time supernova detections'', \href{http://adsabs.harvard.edu/abs/2015ATel.7099....1F}{ATEL 7099-1F}
+    \item Galbany, L., et \textbf{al.}, 2014, ``PESSTO spectroscopic classification of optical transients'', \href{http://adsabs.harvard.edu/abs/2014ATel.6620....1G}{ATEL 6620-1G}
+    \item Romero-Canizales, C., et \textbf{al.}, 2014, ``PESSTO spectroscopic classification of optical transients'', \href{http://adsabs.harvard.edu/abs/2014ATel.6618....1R}{ATEL 6618-1R}
+    \item Takats, K., et \textbf{al.}, 2014, ``PESSTO spectroscopic classification of optical transients'', \href{http://adsabs.harvard.edu/abs/2014ATel.6612....1T}{ATEL 6612-1T}
+    \item Forster, F., et \textbf{al.}, 2014, ``5 more SN candidates discovered with DECam'', \href{http://adsabs.harvard.edu/abs/2014ATel.5956....1F}{ATEL 5956-1F}
+    \item Pignata, G., et \textbf{al.}, 2012, ``PESSTO spectroscopic classification of optical transients'', \href{http://adsabs.harvard.edu/abs/2012ATel.4576....1P}{ATEL 4576-1P}
+    \item Pignata, G., et \textbf{al.}, 2012, ``PESSTO spectroscopic classification of optical transients'', \href{http://adsabs.harvard.edu/abs/2012ATel.4571....1P}{ATEL 4571-1P}
+    \item Pignata, G., \& \textbf{de Jaeger, T}, 2012, ``Supernova 2012dl in ESO 459-6 = PSN J19120821-3207370'', \href{http://adsabs.harvard.edu/abs/2012CBET.3170....2P}{CBET 3170-2P}
+    \item Pignata, G., et \textbf{al.}, 2012, ``Supernova 2012dl in ESO 459-6 = Psn J19120821-3207370'', \href{http://adsabs.harvard.edu/abs/2012CBET.3170....1P}{CBET 3170-1P}
+    \item \textbf{de Jaeger, T} et al., 2012, ``Supernova 2012ah in NGC 7637'', \href{http://adsabs.harvard.edu/abs/2012CBET.3031....1D}{CBET 3031-1D}
+    \item Anderson, J. et \textbf{al.}, 2012, ``Supernova 2012U in PGC 8012 = PSN J02060433-5511375'', \href{http://adsabs.harvard.edu/abs/2012CBET.3007....3A}{CBET 3007-3A}
+    \item Anderson, J. et \textbf{al.}, 2012, ``Supernova 2011kc in PGC 8012 = PSN J02060433-5511375'', \href{http://adsabs.harvard.edu/abs/2012CBET.3006....2A}{CBET 3006-2A}
+    \item Anderson, J. et \textbf{al.}, 2011, ``Supernova 2011hu in PGC 19254 = PSN J06334085-3416267'', \href{http://adsabs.harvard.edu/abs/2011CBET.2904....2A}{CBET 2904-2A}
+    \item Maza,J. et \textbf{al.}, 2011, ``Supernova 2011hu in Pgc 19254 = Psn J06334085-3416267'', \href{http://adsabs.harvard.edu/abs/2011CBET.2904....1M}{CBET 2904-1M}
+    \item Anderson, J. \& \textbf{de Jaeger, T}, 2011, ``Supernova 2011hq in MCG -02-13-37'', \href{http://adsabs.harvard.edu/abs/2011CBET.2900....2A}{CBET 2900-2A}
+    \item Pignata, G., et \textbf{al.}, 2011, ``Supernova 2011gz = PSN J00374627-3339514'', \href{http://adsabs.harvard.edu/abs/2011CBET.2872....2P}{CBET 2872-2P}
+    \item Maza, J., et \textbf{al.}, 2011, ``Supernova 2011gz = Psn J00374627-333951'', \href{http://adsabs.harvard.edu/abs/2011CBET.2872....1M}{CBET 2872-1M\\} 
+
+\end{bibenum}
+
+\end{document}
+
