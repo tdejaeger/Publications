@@ -31,15 +31,15 @@ A extensive list of all my publications, including all the papers as co authors.
 
 # Presentations   
 
-A small fractions of the presentations I gave for general audience.   
+A small fractions of the presentations I gave for general audiences.   
 
 - Expanding Universe Final: General lecture (45 min) on the expanding Universe given at the City of College San Francisco (California, USA).  
 
-- Lisboa: Seminar (45 min) on the supernova and my research given at the Instituto Superior Tecnico (Lisboa, Portugal).  
+- Lisboa: General seminar (45 min) on supernova including my research given at the Instituto Superior Tecnico (Lisboa, Portugal).  
 
 - Evening with star: General audience presentation (15 min) on type II supernovae at University of Berkeley (California, USA).  
 
-- In the following link you can also find a presentation in spanish when I was doing guided visit of the Calan Observatory for general audience and schools  https://prezi.com/cs7jj-q6bs8f/observatorio-astronomico-nacional-cerro-calan/.
+- In the following link you can also find a presentation in spanish when I was doing guided visits at Calan Observatory (Santiago, Chile) for general audience and schools  https://prezi.com/cs7jj-q6bs8f/observatorio-astronomico-nacional-cerro-calan/.
 
 
 
