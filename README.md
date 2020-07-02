@@ -2,6 +2,16 @@
 
 All my first author publications (.pdf) in peer-to-peer reviews:  
 
+- de Jaeger et al. 2020b: A measurement of the Hubble constant from Type II supernovae.  
+-> **In this work, we derive the most precise value of the current expansion rate of the Universe solely using Type II supernovae: H0 = 75.8 +/- 5.2 km/s/Mpc.**
+
+
+- de Jaeger et al. 2020a: Studying Type II supernovae as cosmological standard candles using the Dark Energy Survey.  
+-> **Using the DES-SN combined with four other surveys (CSP-I, SDSS-II, SNLS, and HSC), we perform the most complete SN II cosmology analysis and construct the two largest Hubble diagrams with SNe II in the Hubble flow. For the first time in SN II cosmology, a SN II distance modulus bias simulation using SNANA is performed.**
+
+- de Jaeger et al. 2019: The Berkeley sample of Type II supernovae: BV RI light curves and spectroscopy of 55 SNe II.  
+-> **Berkeley Type II supernova data release (data from 2006 to 2018): BVRI light curves of 55 SNeII + 150 spectra**
+
 - de Jaeger et al. 2018b: Observed Type II supernova colours from the CSP-I.  
 -> **First extensive Type II supernovae observed colour studies demonstrating that difference in colours are due to intrinsic properties**
 
