@@ -1,0 +1,720 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Simple LaTeX CV Template %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% NOTE: If you find that it says                                     %%
+%%                                                                    %%
+%%                           1 of ??                                  %%
+%%                                                                    %%
+%% at the bottom of your first page, this means that the AUX file     %%
+%% was not available when you ran LaTeX on this source. Simply RERUN  %%
+%% LaTeX to get the ``??'' replaced with the number of the last page  %%
+%% of the document. The AUX file will be generated on the first run   %%
+%% of LaTeX and used on the second run to fill in all of the          %%
+%% references.                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't like 10pt? Try 11pt or 12pt
+\documentclass[12pt]{article}
+\RequirePackage[T1]{fontenc}
+
+% LaTeX will typeset using Computer Modern Roman, which a lot of
+% non-mathematicians and non-engineers won't like. Also, a few PDF
+% viewers may not render CMR very well. Instead, Times New Roman can
+% be used. That's what this package does.
+\usepackage{times}
+
+% The automated optical recognition software used to digitize resume
+% information works best with fonts that do not have serifs. This
+% command uses a sans serif font throughout. Uncomment both lines (or at
+% least the second) to restore a Roman font (i.e., a font with serifs).
+% (NOTE: This requires the times package above)
+%\renewcommand{\familydefault}{\sfdefault}
+
+% This is a helpful package that puts math inside length specifications
+\usepackage{calc}
+
+% This package helps LaTeX auto-hyphenate hyphenated words if you use
+% special hyphens. For example, bio\-/mimicry will properly hyphenate
+% ``mimicry'' if necessary.
+\usepackage[shortcuts]{extdash}
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+%
+%         PAPER SIZE, PAGE NUMBER, AND DOCUMENT LAYOUT NOTES:
+%
+% The next \usepackage line changes the layout for CV style section
+% headings as marginal notes. It also sets up the paper size as either
+% letter or A4. By default, letter was used. If A4 paper is desired,
+% comment out the letterpaper lines and uncomment the a4paper lines.
+%
+% As you can see, the margin widths and section title widths can be
+% easily adjusted.
+%
+% ALSO: Notice that the includefoot option can be commented OUT in order
+% to put the PAGE NUMBER *IN* the bottom margin. This will make the
+% effective text area larger.
+%
+% IF YOU WISH TO REMOVE THE ``of LASTPAGE'' next to each page number,
+% see the note about the +LP and -LP lines below. Comment out the +LP
+% and uncomment the -LP.
+%
+% IF YOU WISH TO REMOVE PAGE NUMBERS, be sure that the includefoot line
+% is uncommented and ALSO uncomment the \pagestyle{empty} a few lines
+% below.
+%
+
+%% Use these lines for letter-sized paper
+%\usepackage[paper=letterpaper,
+%            %includefoot, % Uncomment to put page number above margin
+%            marginparwidth=1.2in,     % Length of section titles
+%            marginparsep=.05in,       % Space between titles and text
+%            margin=1in,               % 1 inch margins
+%            includemp]{geometry}
+
+%% Use these lines for A4-sized paper
+\usepackage[paper=a4paper,
+            %includefoot, % Uncomment to put page number above margin
+            marginparwidth=5.5mm,    % Length of section titles
+            marginparsep=1.5mm,       % Space between titles and text
+            margin=15mm,              % 25mm margins
+            includemp]{geometry}
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+% Provides special list environments and macros to create new ones
+\usepackage[shortlabels]{enumitem}
+
+% Simpler bibsections for CV sections
+% (thanks to natbib for inspiration)
+%
+% * For lists of references with hanging indents and no numbers:
+%
+%   \begin{bibsection}
+%       \item ...
+%   \end{bibsection}
+%
+% * For numbered lists of references (with hanging indents):
+%
+%   \begin{bibenum}
+%       \item ...
+%   \end{bibenum}
+%
+%   Note that bibenum numbers continuously throughout. To reset the
+%   counter, use
+%
+%   \restartlist{bibenum}
+%
+%   at the place where you want the numbering to reset.
+
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{0em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newlist{bibsection}{itemize}{3}
+\setlist[bibsection]{label=,leftmargin=\bibhang,%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\newlist{bibenum}{enumerate}{3}
+\setlist[bibenum]{label=[\arabic*],resume,leftmargin={\bibhang+\widthof{[999]}},%
+        itemindent=-\bibhang,
+        itemsep=\bibsep,parsep=\z@,partopsep=0pt,
+        topsep=0pt}
+\let\oldendbibenum\endbibenum
+\def\endbibenum{\oldendbibenum\vspace{-.6\baselineskip}}
+\let\oldendbibsection\endbibsection
+\def\endbibsection{\oldendbibsection\vspace{-.6\baselineskip}}
+\makeatother
+
+%% Reference the last page in the page number
+%
+% NOTE: comment the +LP line and uncomment the -LP line to have page
+%       numbers without the ``of ##'' last page reference)
+%
+% NOTE: uncomment the \pagestyle{empty} line to get rid of all page
+%       numbers (make sure includefoot is commented out above)
+%
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.3}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+\usepackage{marvosym}
+
+%%%%%%%%%%%%%%%%%%%%%%%% End Document Setup %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% HEADING AT TOP OF CURRICULUM VITAE
+
+% The title (name) with a horizontal rule under it
+% (optional argument typesets an object right-justified across from name
+%  as well)
+%
+% Usage: \makeheading{name}
+%        OR
+%        \makeheading[right_object]{name}
+%
+% Place at top of document. It should be the first thing.
+% If ``right_object'' is provided in the square-braced optional
+% argument, it will be right justified on the same line as ``name'' at
+% the top of the CV. For example:
+%
+%       \makeheading[\emph{Curriculum vitae}]{Your Name}
+%
+% will put an emphasized ``Curriculum vitae'' at the top of the document
+% as a title. Likewise, a picture could be included:
+%
+%   \makeheading[{\includegraphics[height=1.5in]{my_picture}}]{Your Name}
+%
+% the picture will be flush right across from the name. For this example
+% to work, make sure the extra set of curly braces is included. Also
+% makes ure that \usepackage{graphicx} is somewhere in the preamble.
+\newcommand{\makeheading}[2][]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+             {\large \bfseries #2 \hfill #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+%%% SECTION HEADINGS
+
+% The section headings. Flush left in small caps down pseudo-margin.
+%
+% Usage: \section{section name}
+\renewcommand{\section}[1]{\pagebreak[3]%
+    \vspace{1.3\baselineskip}\hspace{0.5cm}%
+    \phantomsection\addcontentsline{toc}{section}{#1}%
+    \llap{\scshape\smash{\parbox[t]{\marginparwidth}{\hyphenpenalty=10000\raggedright #1}}}%
+    \vspace{-\baselineskip}\par}
+
+%%% LISTS
+
+% This macro alters a list by removing some of the space that follows the list
+% (is used by lists below)
+\newcommand*\fixendlist[1]{%
+    \expandafter\let\csname preFixEndListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixEndListend#1\endcsname\vspace{-0.6\baselineskip}}}
+
+% These macros help ensure that items in outer-type lists do not get
+% separated from the next line by a page break
+% (they are used by lists below)
+\let\originalItem\item
+\newcommand*\fixouterlist[1]{%
+    \expandafter\let\csname preFixOuterList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\def\item{\pagebreak[2]\oldItem}\csname preFixOuterList#1\endcsname}
+    \expandafter\let\csname preFixOuterListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\let\item\oldItem\csname preFixOuterListend#1\endcsname}}
+\newcommand*\fixinnerlist[1]{%
+    \expandafter\let\csname preFixInnerList#1\expandafter\endcsname\csname #1\endcsname
+    \expandafter\def\csname #1\endcsname{\let\oldItem\item\let\item\originalItem\csname preFixInnerList#1\endcsname}
+    \expandafter\let\csname preFixInnerListend#1\expandafter\endcsname\csname end#1\endcsname
+    \expandafter\def\csname end#1\endcsname{\csname preFixInnerListend#1\endcsname\let\item\oldItem}}
+
+% An itemize-style list with lots of space between items
+%
+% Usage:
+%   \begin{outerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{outerlist}
+\newlist{outerlist}{itemize}{3}
+    \setlist[outerlist]{label=\enskip\textbullet,leftmargin=*}
+    \fixendlist{outerlist}
+    \fixouterlist{outerlist}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{lonelist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{lonelist}
+\newlist{lonelist}{itemize}{3}
+    \setlist[lonelist]{label=\enskip\textbullet,leftmargin=*,partopsep=0pt,topsep=0pt}
+    \fixendlist{lonelist}
+    \fixouterlist{lonelist}
+
+% An itemize-style list with little space between items
+%
+% Usage:
+%   \begin{innerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{innerlist}
+\newlist{innerlist}{itemize}{3}
+    \setlist[innerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixinnerlist{innerlist}
+
+% An environment IDENTICAL to innerlist that has better pre-list spacing
+% when used as the first thing in a \section
+%
+% Usage:
+%   \begin{loneinnerlist}
+%       \item ...    % (or \item[] for no bullet)
+%   \end{loneinnerlist}
+\newlist{loneinnerlist}{itemize}{3}
+    \setlist[loneinnerlist]{label=\enskip\textbullet,leftmargin=*,parsep=0pt,itemsep=0pt,topsep=0pt,partopsep=0pt}
+    \fixendlist{loneinnerlist}
+    \fixinnerlist{loneinnerlist}
+
+%%% EXTRA SPACE
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[3]}
+\newcommand{\halfblankline}{\quad\vspace{-0.5\baselineskip}\pagebreak[3]}
+%%% FORMATTING MACROS
+
+% Provides a linked \doi{#1} that links doi:#1 to http://dx.doi.org/#1
+\usepackage{doi}
+% To change the text before the DOI, adjust this command
+%\renewcommand\doitext{doi:}
+
+% Provides a linked \url{#1} that doesn't require escape characters
+\usepackage{url}
+
+% You can adjust the style \url{} uses here:
+% (options are: same, rm, sf, tt, defaults to tt)
+\urlstyle{same}
+
+% For \email{ADDRESS}, links ADDRESS to the url mailto:ADDRESS
+% (uncomment to typeset the e\-/mail address in typewriter font,
+%  otherwise, will be typeset in the \urlstyle above)
+%\DeclareUrlCommand\emaillink{\urlstyle{tt}}
+\providecommand*\emaillink[1]{\nolinkurl{#1}}
+\providecommand*\email[1]{\href{mailto:#1}{\emaillink{#1}}}
+
+\providecommand\BibTeX{{B\kern-.05em{\sc i\kern-.025em b}\kern-.08em \TeX}}
+\providecommand\Matlab{\textsc{Matlab}}
+
+% Custom hyphenation rules for words that LaTeX has trouble with
+\hyphenation{bio-mim-ic-ry bio-in-spi-ra-tion re-us-a-ble pro-vid-er Media-Wiki}
+
+\usepackage[mmddyy]{datetime}
+\usepackage[T1]{fontenc}
+\usepackage{titling}
+
+\setlength{\droptitle}{-7em}   % This is your set screw
+\title{\Huge\textbf{Thomas de Jaeger}--- Bibliography}
+\date{}
+
+
+\begin{document}
+\maketitle
+
+\vspace{-2.8cm}
+\textbf{Summary: 66 total refereed publications, 12 first author, 9 with significant contribution, 6 papers led by supervised grad students denoted by**, and 1 by undergrad student denoted by***.\\
+Total citations: $>$2150, h-index=26.}\hspace{5cm} ~~~~~~~~~~~~~~~~~~~~\textit{Last update: \today}
+
+
+\section{\textbf{Refereed Journal Publications}}
+
+\vspace{1.8cm}
+\underline{\textbf{First author}}
+\vspace{0.2cm}
+\begin{bibenum}
+
+
+    \item 
+Optical/$\gamma$-ray blazar flare correlations: understanding the high-energy emission process using ASAS-SN and Fermi light curves \\ 
+\textbf{de Jaeger, T.}, Shappee, B. J., Kochanek, C. S. et al. 2023\\
+MNRAS, 519, 6349, \href{https://arxiv.org/pdf/2210.16329.pdf}{2210.16329}
+    \item 
+A 5\% measurement of the Hubble-Lema\^itre constant from Type II supernovae\\ 
+\textbf{de Jaeger, T.}, Galbany, L., Riess, A. G. et al. 2022\\
+MNRAS, 514, 4620, \href{https://arxiv.org/pdf/2203.08974.pdf}{2203.08974}
+    \item 
+ASAS-SN search for optical counterparts of gravitational-wave events from the third observing run of Advanced LIGO/Virgo\\ 
+\textbf{de Jaeger, T.}, Shappee, B. J., Kochanek, C. S. et al. 2021\\
+MNRAS, 509, 3427, \href{https://arxiv.org/pdf/2108.04839.pdf}{2108.04839}
+    \item 
+A measurement of the Hubble constant from Type II supernovae\\
+\textbf{de Jaeger, T.}, Stahl, B. E., Zheng, W. et al. 2020\\
+MNRAS, 498, 4900, \href{https://arxiv.org/pdf/2006.03412.pdf}{2006.03412}
+    \item 
+Studying Type II supernovae as cosmological standard candles using the Dark Energy Survey\\
+\textbf{de Jaeger, T.}, Galbany, L., Gonzalez Gaitan, S., et al. 2020\\
+MNRAS, 495, 4860, \href{https://arxiv.org/pdf/2005.09757.pdf}{2005.09757}
+    \item 
+The Berkeley sample of Type II supernovae: BVRI light curves and spectroscopy of 55 SNe II\\
+\textbf{de Jaeger, T.}, Zheng, W., Stahl, B. E., et al. 2019\\
+MNRAS, 490, 2799, \href{https://arxiv.org/pdf/1909.13813.pdf}{1909.13813}
+    \item 
+SN 2016esw: a luminous Type II supernova observed within the first day after the explosion\\
+\textbf{de Jaeger, T.}, Galbany, L., Gutierrez, C. P., et al. 2018\\
+MNRAS, 478, 3776, \href{https://arxiv.org/abs/1805.03205}{1805.03205}
+    \item 
+Observed Type II supernova colours from the CSP-I\\
+\textbf{de Jaeger, T.}, Anderson, J. P., Galbany, L., et al. 2018\\
+MNRAS, 476, 4592, \href{https://arxiv.org/abs/1802.07254}{1802.07254}
+    \item 
+SN 2016jhj at redshift 0.34: extending the Type II supernova Hubble diagram using the standard candle method\\
+\textbf{de Jaeger, T.}, Galbany, L., Filippenko, A. V., et al. 2017\\
+MNRAS, 472, 4322, \href{https://arxiv.org/abs/1709.01513}{1709.01513}
+    \item 
+A Type II Supernova Hubble diagram from the CSP-I, SDSS-II, and SNLS surveys\\
+\textbf{de Jaeger, T.}, Gonzalez Gaitan, S., Hamuy, M., et al. 2017\\
+ApJ, 835, 166, \href{https://arxiv.org/abs/1612.05636}{1612.05636}
+    \item 
+A Hubble diagram from Type II Supernovae based solely on photometry: the Photometric-Colour Method\\
+\textbf{de Jaeger, T.}, Gonzalez Gaitan, S., Anderson, J. P., et al. 2015\\
+ApJ, 815, 121, \href{http://arxiv.org/abs/1511.05145}{1511.05145}
+    \item 
+SN 2011A: A Low-luminosity Interacting Transient with a Double Plateau and Strong Sodium Absorption\\
+\textbf{de Jaeger, T.}, Anderson, J. P., Pignata, G., et al. 2015\\
+ApJ, 807 63, \href{http://arxiv.org/abs/1505.01852}{1505.01852} 
+
+\end{bibenum}
+
+\vspace{3cm}
+\underline{\textbf{Co-author}}
+
+\vspace{0.2cm}
+\restartlist{bibenum}
+\begin{bibenum}
+
+    \item 
+An updated measurement of the Hubble constant from near-infrared observations of Type Ia supernovae\\
+Galbany, L., \textbf{de Jaeger, T.}, Riess, A. G., 2022\\
+A\&A, Accepted, \href{https://arxiv.org/abs/2209.02546}{2209.02546} 
+
+    \item 
+ Fast and not-so-furious: Case study of the fast and faint type IIb SN 2021bxu   \\
+Desai, D. D., Ashall, C., Shappee, B. J., (incl. \textbf{de Jaeger, T.}), 2023 \\
+MNRAS, temp, 1182 \href{https://arxiv.org/abs/2303.13581}{2303.13581}
+
+    \item 
+ The DEHVILS survey overview and initial data release: high-quality near-infrared Type Ia supernova light curves at low redshift \\
+Peterson, E. R., Jones, D. O, Scolnic, D., (incl. \textbf{de Jaeger, T.}), 2023 \\
+MNRAS, 522, 2478 \href{https://arxiv.org/abs/2301.11868}{2301.11868}
+    \item 
+SN 2016ije: An SN 2002es-like Type Ia Supernova Exploded in a Metal-poor ad Low-surface Brightness Galaxy  \\
+Li, Z., Zhang, T., Wang, X., (incl. \textbf{de Jaeger, T.}), 2023 \\
+ApJ, 950, 17 \href{https://arxiv.org/abs/2305.09417}{2305.09417}
+    \item 
+ Multiple flares in the changing-look AGN NGC 5273   \\
+Neustadt, J. M. M., Hinkle, J. T, Kochanek, C. S., (incl. \textbf{de Jaeger, T.}), 2023 \\
+MNRAS, 521, 3810 \href{https://arxiv.org/abs/2211.03801}{2211.03801}
+    \item
+  JWST Low-resolution MIRI Spectral Observations of SN 2021aefx: High-density Burning in a Type Ia Supernova  \\
+DerKacy, J. M. ; Ashall, C. ; Hoeflich, P., et al. (incl. \textbf{de Jaeger, T.}), 2023\\
+ApJ, 945, 2 \href{https://arxiv.org/abs/2301.03647}{2301.03647}  
+    \item 
+ SCAT Uncovers ATLAS's First Tidal Disruption Event ATLAS18mlw: A Faint and Fast TDE in a Quiescent Balmer Strong Galaxy\\ 
+Hinkle, J. T., Tucker, M. A., Shappee, B. J., et al. (incl. \textbf{de Jaeger, T.}), 2023\\
+MNRAS, 519, 2035 \href{https://arxiv.org/abs/2210.09322}{2210.09322} 
+
+    \item 
+ The disappearances of six supernova progenitors \\
+Van Dyk, S. D. ; de Graw, A. ; Baer-Way, R., et al. (incl. \textbf{de Jaeger, T.}), 2023\\
+MNRAS, 519, 471 \href{https://arxiv.org/abs/2212.00179}{2212.00179} 
+    \item 
+A JWST Near- and Mid-infrared Nebular Spectrum of the Type Ia Supernova 2021aefx  \\
+Kwok, L. A., Jha; S. W., Temin, T., (incl. \textbf{de Jaeger, T.}), 2023 \\
+ApJ 944 3 \href{https://arxiv.org/abs/2211.00038}{2211.00038}
+    \item 
+ Cosmicflows-4\\ 
+Tully B. R., Kourkchi, E., Courtois H. M., et al. (incl. \textbf{de Jaeger, T.}), 2023\\
+ApJ, 944, 94 \href{https://arxiv.org/abs/2209.11238}{2209.11238} 
+
+    \item     
+The Spectroscopic Classification of Astronomical Transients (SCAT) Survey: Overview, Pipeline Description, Initial Results, and Future Plans  \\
+Tucker, M. A., Shappee, B. J., Huber, M.E., (incl. \textbf{de Jaeger, T.}), 2022 \\
+PASP, 134, 4502 \href{https://arxiv.org/abs/2210.09322}{2210.09322}
+    \item 
+SALT3-NIR: Taking the Open-source Type Ia Supernova Model to Longer Wavelengths for Next-generation Cosmological Measurements  \\
+Pierel, J. D. R., Jones, D. O, Kenworthy, W. D., (incl. \textbf{de Jaeger, T.}), 2022 \\
+ApJ, 939, 11 \href{https://arxiv.org/abs/2209.05594}{2209.05594}
+
+    \item 
+**ASAS-SN follow-up of IceCube high-energy neutrino alerts\\
+Necker, J., \textbf{de Jaeger, T.}, Stein, R., 2022 \\
+MNRAS, 516, 2455 \href{https://arxiv.org/abs/2204.00500}{2204.00500}
+
+    \item 
+Testing the homogeneity of type Ia Supernovae in near-infrared for accurate distance estimations \\
+Muller-Bravo, T. E., Galbany L., Karamehmetoglu, E., (incl. \textbf{de Jaeger, T.}), 2022 \\
+MNRAS, 516, 2455 \href{https://arxiv.org/abs/2204.00500}{2204.00500}
+
+    \item 
+Investigating the Nature of the Luminous Ambiguous Nuclear Transient ASASSN-17jz\\
+Holoien, T. W. -S. , Neustadt, J. M. M., Vallely, P. J., et al. (incl. \textbf{de Jaeger, T.}), 2021 \\
+ApJ, 933, 196 \href{https://arxiv.org/abs/2109.07480}{2109.07480}
+
+    \item 
+The Lick Observatory Supernova Search follow-up program: photometry data release of 70 SESNe\\
+Zheng, W., Stahl, B. E., \textbf{de Jaeger, T.}, et al. 2022\\
+MNRAS, 512, 3195, \href{https://arxiv.org/abs/2203.05596}{2203.05596} 
+
+    \item
+The Curious Case of ASASSN-20hx: A Slowly Evolving, UV- and X-Ray-Luminous, Ambiguous Nuclear Transient
+Hinkle, J. T., Holoien, T. W. -S., Shappee, B. J., et al. (incl. \textbf{de Jaeger, T.}), 2022 
+ApJ, 930, 12, \href{https://arxiv.org/abs/2108.03245}{2108.03245}
+
+    \item 
+Early-Time Ultraviolet Spectroscopy and Optical Follow-up Observations of the Type IIP Supernova 2021yja \\
+Vasylyev, S. S., Filippenko, A. V., Vogl, C., et al. (incl. \textbf{de Jaeger, T.}), 2022 \\
+ApJ, 934, 134, \href{https://arxiv.org/abs/2203.08001}{2203.08001}
+
+\item 
+Type II supernovae from the Carnegie Supernova Project-I. III. Understanding SN II diversity through correlations between physical and observed properties\\
+Martinez, L. , Anderson, J. P., Bersten, M. C., et al. (incl. \textbf{de Jaeger, T.}), 2022 \\
+A\&A, 660, 42, \href{https://arxiv.org/abs/2202.11220 }{2202.11220 }
+
+\item 
+Type II supernovae from the Carnegie Supernova Project-I. II. Physical parameter distributions from hydrodynamical modelling\\
+Martinez, L. , Bersten, M. C. , Anderson, J. P., et al. (incl. \textbf{de Jaeger, T.}), 2022 \\
+A\&A, 660, 41, \href{https://arxiv.org/abs/2111.06529}{2111.06529}
+
+\item 
+Type II supernovae from the Carnegie Supernova Project-I. I. Bolometric light curves of 74 SNe II using uBgVriYJH photometry\\
+Martinez, L. , Bersten, M. C. , Anderson, J. P., et al. (incl. \textbf{de Jaeger, T.}), 2022 \\
+A\&A, 660, 40, \href{https://arxiv.org/abs/2111.06519}{2111.06519}
+
+	\item
+The effects of varying colour-luminosity relations on supernova science\\
+Gonzalez-Gaitan, S., \textbf{de Jaeger, T.}, Galbany, L. et al., 2021\\
+MNRAS, 508, 4656, \href{https://arxiv.org/abs/2009.13230}{2009.13230}
+    \item 
+** Peculiar Velocity Cosmology with Types Ia \& II Supernovae\\
+Stahl, B. E., \textbf{de Jaeger, T.}, Boruah, Supranta S., et al. 2021\\
+MNRAS, 505, 2349, \href{https://arxiv.org/abs/2105.05185}{2105.05185} 
+    \item 
+** The snapshot distance method: estimating the distance to a Type Ia supernova from minimal observations\\
+Stahl, B. E., \textbf{de Jaeger, T.}, Zheng, W., et al. 2021\\
+MNRAS, 505, 2300, \href{https://arxiv.org/abs/2105.04446}{2105.04446}
+    \item 
+The Gravity Collective: A Search for the Electromagnetic Counterpart to the Neutron Star-Black Hole Merger GW190814 \\
+Kilpatrick, C. D., Coulter, D. A., Arcavi, I., et al. (incl. \textbf{de Jaeger, T.}) 2021\\
+ApJ, Accepted, \href{https://arxiv.org/abs/2106.06897}{2106.06897}
+    \item 
+Asteroids' Size Distribution and Colors from HITS\\
+Pena, J., Fuentes, C., Forster F., et al. (incl. \textbf{de Jaeger, T.}) 2020\\
+AJ, 159, 148, \href{https://arxiv.org/abs/2003.05499}{2003.05499}
+    \item 
+** Berkeley Supernova Ia Program: Data Release of 637 Spectra from 247 Type Ia Supernovae\\
+Stahl, B. E., Zheng, W., \textbf{de Jaeger, T.}, et al. 2020\\
+MNRAS, 492, 4325, \href{https://arxiv.org/abs/2001.03235}{2001.03235}   
+    \item 
+** deepSIP: Linking Type Ia Supernova Spectra to Photometric Quantities with Deep Learning\\
+Stahl, B. E., Martinez-Palomera, J., Zheng, W., et al. (incl. \textbf{de Jaeger, T.}) 2020\\
+MNRAS, 496, 3553, \href{https://arxiv.org/abs/2006.06745}{2006.06745}
+
+    \item 
+*** Distribution of Si II $\lambda$6355 velocities of Type Ia supernovae and implications for asymmetric explosions \\
+Zhang, Keto D., Zheng, W., \textbf{de Jaeger, T.}, et al. 2020\\
+MNRAS, 496, 3553, \href{https://arxiv.org/abs/2006.06745}{2006.06745}
+    \item 
+SN 2017cfd: A Normal Type Ia Supernova Discovered Very Young\\
+Han, X., Zheng, W., Stahl, B. E. et al. (incl. \textbf{de Jaeger, T.}), et al. 2020\\
+ApJ, 892 142, \href{https://arxiv.org/abs/1911.07734}{1911.07734}
+ \item 
+Evidence for a Chandrasekhar-mass explosion in the Ca-strong 1991bg-like type Ia supernova 2016hnk\\
+Galbany, L., Ashall, C., Hoflich, P. et al. (incl. \textbf{de Jaeger, T.}) 2019\\
+A\&A, 630, 76A, \href{https://arxiv.org/abs/1904.10034}{1904.10034}
+    \item 
+On the Origin of SN 2016hil--A Type II Supernova in the Remote Outskirts of an Elliptical Host\\
+Irani, I., Schulze, S., Gal-Yam, et al. (incl. \textbf{de Jaeger, T.}), 2019\\
+ApJ, 887, 127, \href{https://arxiv.org/abs/1904.01425}{1904.01425}
+
+    \item 
+** Lick Observatory Supernova Search Follow-Up Program: Photometry Data Release of 93 Type Ia Supernovae\\
+Stahl, B. E., Zheng, W., \textbf{de Jaeger, T.}, et al. 2019\\
+MNRAS, 490, 3882, \href{https://arxiv.org/abs/1909.11140}{1909.11140}
+    \item 
+Late-time observations of the extraordinary Type II supernova iPTF14hls\\
+Sollerman, J., Taddia, F., Arcavi, I. et al. (incl. \textbf{de Jaeger, T.}) 2019\\
+A\&A, 621A, 30S, \href{https://arxiv.org/abs/1806.10001}{1806.10001}
+    \item 
+The Type II-plateau Supernova 2017eaw in NGC 6946 and Its Red Supergiant Progenitor\\
+Van Dyk, S. D., Zheng, W., Maund, J. R. et al. (incl. \textbf{de Jaeger, T.}) 2019\\
+A\&A, 875, 136V, \href{https://arxiv.org/abs/1903.03872}{1903.03872}
+    \item 
+The High Cadence Transit Survey (HiTS): Compilation and Characterization of Light-curve Catalogs\\
+Mart\'inez-Palomera, J., F\"orster, F., Protopapas, P., et al. (incl. \textbf{de Jaeger, T.}) 2018\\
+AJ, 156, 186, \href{https://arxiv.org/abs/1809.00763}{1809.00763}
+    \item 
+The delay of shock breakout due to circumstellar material evident in most type II supernovae\\
+F\"orster, F., Moriya, T. J., Maureira, J. C., et al. (incl. \textbf{de Jaeger, T.}) 2018\\
+Nature Astronomy, 2, 808, \href{https://arxiv.org/abs/1809.06379}{1809.06379}
+    \item 
+Discovery of Distant RR Lyrae Stars in the Milky Way Using DECam\\
+Medina, G. E., Munoz R. R., Vivas K. A., et al. (incl. \textbf{de Jaeger, T.}) 2018\\
+ApJ, 855, 43, \href{https://arxiv.org/abs/1802.01581}{1802.01581}
+    \item 
+Asteroids in the High Cadence Transient Survey\\
+Pena, J., Forster F., Maureira J. C., et al. (incl. \textbf{de Jaeger, T.}) 2018\\
+AJ,155, 135, \href{https://arxiv.org/abs/1806.03352}{1806.03352}
+    \item 	
+A surge of light at the birth of a supernova\\
+Bersten, M. C., Folatelli, G., Garcia, F., et al. (incl. \textbf{de Jaeger, T.}) 2018\\
+Nature, 554, 487, \href{https://arxiv.org/abs/1801.00732}{1801.00732}
+    \item 	
+The First Post-Kepler Brightness Dips of KIC 8462852\\
+Boyajian, T. S., Alonso, R., Ammerman, A., et al. (incl. \textbf{de Jaeger, T.}) 2018\\
+ApJ, 835, 8, \href{https://arxiv.org/abs/1802.09360}{1802.09360}
+    \item 	
+Gaia17biu/SN 2017egm in NGC 3191: the closest hydrogen-poor superluminous supernova to date is in a "normal", massive, metal-rich spiral galaxy\\
+Bose, S., Dong, S., Pastorello, A., et al. (incl. \textbf{de Jaeger, T.}) 2018\\
+ApJ, 853, 57, \href{https://arxiv.org/abs/1708.00864}{1708.00864}
+    \item 
+Serendipitous discovery of RR Lyrae stars in the Leo V ultra-faint galaxy\\
+Medina, G. E., Munoz R. R., Vivas K. A., et al. (incl. \textbf{de Jaeger, T.}) 2017\\
+ApJ, 845, 10, \href{https://arxiv.org/abs/1708.00009}{1708.00009}
+    \item 
+The High Cadence Transient Survey (HITS). I. Survey Design and Supernova Shock Breakout Constraints\\
+Forster, F., Maureira, J. C., San Martin, J., et al. (incl. \textbf{de Jaeger, T.}) 2016\\
+ApJ, 832, 166, \href{https://arxiv.org/abs/1609.03567}{1609.03567}
+    \item 
+Type II supernovae as probes of environment metallicity: observations of host H II regions\\
+Anderson, J. P., Gutierrez, C. P., Dessart, L., et al. (incl. \textbf{de Jaeger, T.}) 2016\\
+A\&A, 589, 110, \href{https://arxiv.org/abs/1602.00011}{1602.00011}
+    \item 
+UBVRIz Light Curves of 51 Type II Supernovae\\
+Galbany, L., Hamuy, M., Phillips, M. M., et al. (incl. \textbf{de Jaeger, T.}) 2016\\
+AJ, 151,33, \href{http://arxiv.org/abs/1511.08402}{1511.08402}
+    \item 
+The rise-time of Type II supernovae\\
+Gonz\'alez-Gait\'an, S., Tominaga, N., Molina, J, et al. (incl. \textbf{de Jaeger, T.}) 2015\\
+MNRAS, 451 2212, \href{http://arxiv.org/abs/1505.02988}{1505.02988} 
+    \item 
+Nebular phase observations of the Type-Ib supernova iPTF13bvn favour a binary progenitor\\
+Kuncarayakti, H., Maeda, K., Bersten, M. C., et al. (incl. \textbf{de Jaeger, T.}) 2015\\
+A\&A, 579 95, \href{http://arxiv.org/abs/1504.01473}{1504.01473}
+    \item 
+PESSTO: survey description and products from the first data release by the Public ESO Spectroscopic Survey of Transient Objects\\
+Smartt, S. J., Valenti, S., Fraser, M., et al. (incl. \textbf{de Jaeger, T.}) 2015\\
+A\&A, 579 40, \href{http://arxiv.org/abs/1411.0299}{1411.0299}
+    \item 
+Defining Photometric Peculiar Type Ia Supernovae\\
+Gonz\'alez-Gait\'an, S., Hsiao, E. Y., Pignata, G., et al. (incl. \textbf{de Jaeger, T.}) 2014\\
+ApJ, 795 142, \href{http://arxiv.org/abs/1409.4811}{1409.4811}
+    \item 
+Characterizing the V-band Light-curves of Hydrogen-rich Type II Supernovae\\
+Anderson, J. P., Gonz\'alez-Gait\'an, S., Hamuy, M., et al. (incl. \textbf{de Jaeger, T.}) 2014\\
+ApJ, 786 67, \href{http://arxiv.org/abs/1403.7091}{1403.7091} 
+    \item 
+SN 2011hs: a fast and faint Type IIb supernova from a supergiant progenitor\\
+Bufano, F., Pignata, G., Bersten, M., et al. (incl. \textbf{de Jaeger, T.}) 2014\\
+MNRAS, 439 1807, \href{http://arxiv.org/abs/1401.2368}{1401.2368}
+    \item 
+An Independent Measurement of the Incidence of Mg II Absorbers along Gamma-Ray Burst Sight Lines: The End of the Mystery?\\
+Cucchiara, A., Prochaska, J. X., Zhu, G., et al. (incl. \textbf{de Jaeger, T.}) 2013\\
+ApJ, 773 82, \href{http://arxiv.org/abs/1211.6528}{1211.6528} 
+    \item 
+Spectroscopic Observations of SN 2012fr: A Luminous, Normal Type Ia Supernova with Early High-velocity Features and a Late Velocity Plateau\\
+Childress, M. J., Scalzo, R. A., Sim, S. A., et al. (incl. \textbf{de Jaeger, T.}) 2013\\
+ApJ, 786 67, \href{http://arxiv.org/abs/1302.2926}{1302.2926\\} 
+
+\end{bibenum}
+
+\hspace{-3cm}\textcolor{black}{\rule{22.8cm}{0.5mm}}
+
+\section{\textbf{Non-refereed publications}}
+\restartlist{bibenum}
+\vspace{2.0cm}
+\begin{bibenum}
+
+\item
+JWST MIRI/MRS Observations and Spectral Models of the Under-luminous Type Ia Supernova 2022xkq\\
+DerKacy, J. M.; Ashall, C.; Hoeflich, P. et al. (incl. \textbf{de Jaeger, T.}) 2023
+ApJ, Submitted, \href{https://arxiv.org/abs/2310.09153}{2310.09153} 
+
+    \item 
+Strong Carbon Features and a Red Early Color in the Underluminous Type Ia SN 2022xkq  \\
+Pearson, J., Sand, D. J., Lundqvist, P., et al. (incl. \textbf{de Jaeger, T.}) 2023
+ApJ, Submitted, \href{https://arxiv.org/abs/2309.10054}{2309.10054} 
+
+    \item 
+ SN 2022crv: IIb, Or Not IIb: That is the Question\\
+Dong, Y., Valenti, S., Ashall, C., et al. (incl. \textbf{de Jaeger, T.}) 2023
+ApJ, Submitted, \href{https://arxiv.org/abs/2309.09433}{2309.09433} 
+
+    \item 
+Ground-based and JWST Observations of SN 2022pul: II. Evidence from Nebular Spectroscopy for a Violent Merger in a Peculiar Type-Ia Supernova  \\
+Kwok, L. A., Siebert, M. R., Johansson, J., et al. (incl. \textbf{de Jaeger, T.}) 2023
+ApJ, Submitted, \href{https://arxiv.org/abs/2308.12450}{2308.12450} 
+
+    \item 
+Ground-based and JWST Observations of SN 2022pul: I. Unusual Signatures of Carbon, Oxygen, and Circumstellar Interaction in a Peculiar Type Ia Supernova  \\
+Siebert, M. R., Kwok, L. A., Johansson, J., et al. (incl. \textbf{de Jaeger, T.}) 2023
+ApJ, Submitted, \href{https://arxiv.org/abs/2308.12449}{2308.12449} 
+
+    \item 
+Early-Time Ultraviolet and Optical Hubble Space Telescope Spectroscopy of the Type II Supernova 2022wsp \\
+Vasylyev, S. S., Vogl, C., Yang, Y., et al. (incl. \textbf{de Jaeger, T.}) 2023
+ApJL, Submitted, \href{https://arxiv.org/abs/2304.06147}{2304.06147} \\
+
+
+
+\end{bibenum}
+
+\hspace{-3cm}\textcolor{black}{\rule{22.8cm}{0.5mm}}
+
+\section{\textbf{Books}}
+\restartlist{bibenum}
+\vspace{1.3cm}
+\begin{bibenum}
+
+    \item 
+ The pursuit of the Hubble Constant using Type II Supernovae \\
+\textbf{de Jaeger, T.}, Galbany, L. 2024\\
+Invited chapter for the edited book "Hubble Constant Tension" (Eds. E. Di Valentino and D. Brout, Springer Singapore)
+\href{https://ui.adsabs.harvard.edu/abs/2023arXiv230517243D/abstract}{2305.17243}\\
+
+
+\end{bibenum}
+
+\hspace{-3cm}\textcolor{black}{\rule{22.8cm}{0.5mm}}
+
+\section{\textbf{Conferences proceedings}}
+\restartlist{bibenum}
+\vspace{1.3cm}
+\begin{bibenum}
+
+    \item 
+A double plateau and unprecendented circumstellar variable sodium in the transient SN 2011A\\
+\textbf{de Jaeger, T.}, Anderson, J., Pignata, G., Hamuy, M. 2014\\
+\href{http://adsabs.harvard.edu/abs/2014IAUS..296..346D}{IAUS, 296, 346}\\ 
+
+\end{bibenum}
+
+\hspace{-3cm}\textcolor{black}{\rule{22.8cm}{0.5mm}}
+
+\section{\textbf{Others}}
+\restartlist{bibenum}
+\vspace{0.8cm}
+\begin{bibenum}
+
+
+\item{50 TNS reports, 11 CBETS, 56 ATELs, 2 GCNs}
+
+  
+\end{bibenum}
+
+\end{document}
+
